@@ -27,6 +27,7 @@ void initPlayer(Player &p, ClassType c) {
     p.skill1Level = p.skill2Level = p.skill3Level = 0;
 }
 
+// Display current player status: HP, block, poison
 void showPlayerStatus(const Player &p) {
     cout << "Player HP: " << p.hp << "/" << p.maxHP
          << "  Block: " << p.block
@@ -36,6 +37,7 @@ void showPlayerStatus(const Player &p) {
 void upgradeSkill(Player &p) {
     cout << "\n--- Choose a skill to upgrade ---\n";
     int ch;
+    // Upgrade options for Warrior
     if (p.cls == WARRIOR) {
         cout << "1. Skill 1 (Attack)   +3 damage\n";
         cout << "2. Skill 2 (Defense)  +2 block\n";
@@ -50,6 +52,7 @@ void upgradeSkill(Player &p) {
         } else {
             p.baseDamage1 += 3; p.skill1Level++;
         }
+        // Upgrade options for Mage
     } else {
         cout << "1. Skill 1 (Poison Strike)  +1 poison stack\n";
         cout << "2. Skill 2 (Shield)         +2 block\n";
@@ -73,11 +76,13 @@ Enemy generateNormalEnemy(int floor, int difficulty) {
     e.isBoss = false;
     e.name = "Minion Floor " + to_string(floor);
 
+    // Base stats increase with floor
     int baseHP      = 30 + floor * 10;
     int baseAtkMin  = 5  + floor * 2;
     int baseAtkMax  = 8  + floor * 3;
     int baseBlock   = 4  + floor * 2;
 
+    // Stats increase with difficulty
     int hpBonus   = (difficulty - 1) * 10;
     int atkBonus  = (difficulty - 1) * 2;
     int blkBonus  = (difficulty - 1) * 1;
@@ -92,6 +97,7 @@ Enemy generateNormalEnemy(int floor, int difficulty) {
     return e;
 }
 
+// Create boss enemy based on difficulty
 Enemy generateBoss(int difficulty) {
     Enemy e;
     e.isBoss = true;
@@ -113,6 +119,7 @@ Enemy generateBoss(int difficulty) {
     return e;
 }
 
+// Display current enemy status: HP, block, poison
 void showEnemyStatus(const Enemy &e) {
     cout << e.name << " HP: " << e.hp << "/" << e.maxHP
          << "  Block: " << e.block
