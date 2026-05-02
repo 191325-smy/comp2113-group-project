@@ -45,9 +45,7 @@ int main() {
     // 5. Loop through all enemies
     for (int i = 0; i < totalBattles && alive; ++i) {
         int nextAttack = 0, nextDef = 0;
-        bool win = fightOneEnemy(player, enemies[i], stats,
-                                 pendingAttackBonus, pendingDefBonus,
-                                 nextAttack, nextDef);
+        bool win = fightOneEnemy(player, enemies[i], stats, pendingAttackBonus, pendingDefBonus, nextAttack, nextDef);
         if (!win) {
             alive = false;
             break;
