@@ -5,12 +5,13 @@
 #include <sstream>
 using namespace std;
 
+// Generate a random integer between l and r (inclusive)
 int randInRange(int l, int r) {
     return l + rand() % (r - l + 1);
 }
 
-int applyDamageToTarget(int dmg, int &targetBlock, int &targetHP,
-                        GameStats &stats, bool countBlocked) {
+// Apply damage to target, considering block. Returns actual damage dealt.
+int applyDamageToTarget(int dmg, int &targetBlock, int &targetHP, GameStats &stats, bool countBlocked) {
     if (dmg <= 0) return 0;
     int blocked = (targetBlock > dmg) ? dmg : targetBlock;
     targetBlock -= blocked;
@@ -18,11 +19,12 @@ int applyDamageToTarget(int dmg, int &targetBlock, int &targetHP,
         stats.totalDamageBlocked += blocked;
     }
     int realDmg = dmg - blocked;
-    targetHP -= realDmg;
     if (realDmg < 0) realDmg = 0;
+    targetHP -= realDmg;
     return realDmg;
 }
 
+// Read an integer from user input within [minVal, maxVal]. Re-prompt on invalid input.
 int readIntInRange(const char *prompt, int minVal, int maxVal) {
     int x;
     while (true) {
@@ -44,6 +46,7 @@ int readIntInRange(const char *prompt, int minVal, int maxVal) {
     }
 }
 
+// Read and return entire content of a file. Return empty string if file cannot be opened.
 string readWholeFile(const string &filename) {
     ifstream fin(filename);
     if (!fin.is_open()) {
@@ -56,6 +59,7 @@ string readWholeFile(const string &filename) {
     return buffer.str();
 }
 
+// Write original content and game statistics to the output file.
 void writeResultFile(const string &filename,
                      const string &original,
                      const GameStats &stats) {

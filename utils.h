@@ -17,8 +17,6 @@ int readIntInRange(const char *prompt, int minVal, int maxVal);
 
 // file I/O
 std::string readWholeFile(const std::string &filename);
-void writeResultFile(const std::string &filename,
-                     const std::string &original,
-                     const GameStats &stats);
+void writeResultFile(const std::string &filename, const std::string &original, const GameStats &stats);
 
 #endif
